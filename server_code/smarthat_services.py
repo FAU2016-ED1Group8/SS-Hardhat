@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
-from flask.ext.mysql import MySQL
+from flaskmysql import MySQL
 
 
 
