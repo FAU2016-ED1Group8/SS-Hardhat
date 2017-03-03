@@ -1,12 +1,12 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
-from flask.ext.mysql import MySQL
+from flaskmysql import MySQL
 
 
 
 mysql = MySQL()
-app = Flask(__sshhat-services__)
+app = Flask(__smarthatservices__)
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'smarthat'
