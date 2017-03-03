@@ -6,7 +6,7 @@ from flask.ext.mysql import MySQL
 
 
 mysql = MySQL()
-app = Flask(__sshhat-services__)
+app = Flask(__smarthatservices__)
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'smarthat'
