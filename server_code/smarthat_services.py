@@ -88,7 +88,7 @@ class AddItem(Resource):
             _userId = args['id']
             _item = args['item']
 
-            print _userId;
+            print ('%s',_userId)
 
             conn = mysql.connect()
             cursor = conn.cursor()
