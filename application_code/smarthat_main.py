@@ -13,10 +13,13 @@ from pyrebase import pyrebase
 # Use the Broadcom SOC Pin numbers
 # Setup the Pin with Internal pullups enabled and PIN in reading mode.
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN)
-GPIO.setup(6, GPIO.IN)
-GPIO.setup(13, GPIO.IN)
-GPIO.setup(26, GPIO.IN)
+GPIO.setup(5, GPIO.IN) #log hazard
+GPIO.setup(6, GPIO.IN) #start end call
+GPIO.setup(13, GPIO.IN) #camera
+GPIO.setup(26, GPIO.IN) #shutdown
+GPIO.setup(11, GPIO.OUT) #laser
+GPIO.setup(9, GPIO.IN) #mag sensor ADC1
+GPIO.setup(10, GPIO.IN) #mag sensor ADC2
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3) #FONA Serial
 gpio.setup(callbutton,gpio.IN)#input
@@ -47,23 +50,23 @@ with sr.Microphone() as source:
     audio = r.listen(source)
 
 # Our function on what to do when the button is pressed
-def Shutdown(channel):
+def Shutdown():
     os.system("sudo shutdown -h now")
 
-def getGPSCoordinates(channel):
+def getGPSCoordinates():
     try:
         if ser.write("AT+CGNSPWR=?") == 'OK':
             gpsLocation = ser.write("AT+CGNSINF")
-            
+
     except:
         #log error
-def capturePicture(channel):
+def capturePicture():
     #add naming code for image
     fswebcam -r 640x480 --save image4.jpg
 
 
 
-def speech2text(channel):
+def speech2text():
     # Speech recognition using Google Speech Recognition
     try:
         # for testing purposes, we're just using the default API key
@@ -78,10 +81,14 @@ def speech2text(channel):
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-def recHazLog(channel):
+def recHazLog():
 
 
-def startAnswerCall(channel):
+def checkMagField():
+
+
+
+def startAnswerCall():
     #ser = serial.Serial("/dev/ttyUSB0",115200,timeout=3) #FONA Serial
     if callstate == False:     #make call
         callstate = True
@@ -115,8 +122,9 @@ def endCall(channel):
 
 # Now wait!
 while 1:
-    GPIO.add_event_detect(5, GPIO.RISING, callback = logHazard, bouncetime = 2000)         #board 29
-    GPIO.add_event_detect(6, GPIO.RISING, callback = startEndCall, bouncetime = 2000)      #board 31
-    GPIO.add_event_detect(13, GPIO.RISING, callback = capturePicture, bouncetime = 2000)   #board 33
-    GPIO.add_event_detect(26, GPIO.RISING, callback = Shutdown, bouncetime = 2000)         #board 37
+    GPIO.add_event_detect(5, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #board 29
+    GPIO.add_event_detect(6, GPIO.FALLING, callback = startEndCall, bouncetime = 2000)      #board 31
+    GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #board 33
+    GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #board 37
+    GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #board 21
     #time.sleep(1)
