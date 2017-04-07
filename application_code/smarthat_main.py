@@ -9,6 +9,7 @@ import os
 import speech_recognition as sr
 import datetime
 from pyrebase import pyrebase
+from subprocess import call
 
 #    Use the Broadcom SOC Pin numbers
 #    Setup the Pin with Internal pullups enabled and PIN in reading mode.
@@ -62,7 +63,7 @@ def getGPSCoordinates():
         #  log error
 def capturePicture():
     #  add naming code for image
-    fswebcam -r 640x480 --save image4.jpg
+    call(["fswebcam -r 640x480 --save image4.jpg"])
 
 
 
