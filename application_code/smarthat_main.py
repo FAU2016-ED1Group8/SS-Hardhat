@@ -50,6 +50,15 @@ with sr.Microphone() as source:
     print("Say something!")
     audio = r.listen(source)
 
+
+while 1:
+    GPIO.add_event_detect(5, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #  board 29
+    GPIO.add_event_detect(6, GPIO.FALLING, callback = startEndCall, bouncetime = 2000)      #  board 31
+    GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
+    GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
+    GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
+    #  time.sleep(1)
+
 #   Our function on what to do when the button is pressed
 def Shutdown():
     os.system("sudo shutdown -h now")
@@ -121,10 +130,3 @@ def startAnswerCall():
 #   Add our function to execute when the button pressed event happens / function called on button down
 
 #   Now wait!
-while 1:
-    GPIO.add_event_detect(5, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #  board 29
-    GPIO.add_event_detect(6, GPIO.FALLING, callback = startEndCall, bouncetime = 2000)      #  board 31
-    GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
-    GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
-    GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
-    #  time.sleep(1)
