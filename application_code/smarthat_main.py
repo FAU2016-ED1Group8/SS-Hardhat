@@ -116,7 +116,7 @@ def startAnswerCall():
             while innput_value==False:
                 input_value=gpio.input(callbutton)
 
-def endCall(channel):
+#  def endCall(channel):
 
 #   Add our function to execute when the button pressed event happens / function called on button down
 
