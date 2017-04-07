@@ -82,10 +82,10 @@ def speech2text():
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-def recHazLog():
+#  def recHazLog():
 
 
-def checkMagField():
+#  def checkMagField():
 
 
 
@@ -101,8 +101,7 @@ def startAnswerCall():
           """
         ser.write("ATH\r")
         ser.close()
-    else #   answercall():
-
+    else:   #   answercall():
         print("Answering Call")
         ser.write("ATA\r")
         data=""
