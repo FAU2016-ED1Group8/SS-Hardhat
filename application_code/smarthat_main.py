@@ -58,7 +58,7 @@ def getGPSCoordinates():
         if ser.write("AT+CGNSPWR=?") == 'OK':
             gpsLocation = ser.write("AT+CGNSINF")
 
-    except:
+    #except:
         #log error
 def capturePicture():
     #add naming code for image
