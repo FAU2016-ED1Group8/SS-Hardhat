@@ -110,6 +110,9 @@ def startAnswerCall():
 
 #   Now wait!
 
+def callButton():
+    print("Call function")
+
 
 callstate = False
 
@@ -135,7 +138,7 @@ time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
 while 1:
 #    GPIO.add_event_detect(5, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #  board 29
-    GPIO.add_event_detect(6, GPIO.FALLING, callback = startEndCall, bouncetime = 2000)      #  board 31
+    GPIO.add_event_detect(6, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
     GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
     GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
     GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
