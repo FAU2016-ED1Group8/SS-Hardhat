@@ -24,8 +24,6 @@ GPIO.setup(10, GPIO.IN)  #   mag sensor ADC2
 GPIO.setup(22, GPIO.OUT)  #   laser
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
-gpio.setup(callbutton,gpio.IN)  #   input
-
 
 #   Our function on what to do when the button is pressed
 def Shutdown():
