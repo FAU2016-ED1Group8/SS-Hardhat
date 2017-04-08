@@ -9,6 +9,7 @@ import os
 import speech_recognition as sr
 import datetime
 import serial
+import PyAudio
 from pyrebase import pyrebase
 from subprocess import call
 
@@ -39,10 +40,9 @@ def getGPSCoordinates():
 def capturePicture():
     #  add naming code for image
     call(["fswebcam -r 640x480 --save image4.jpg"])
+    print("image4 captured")
 
-
-
-def speech2text():
+def speech2text(r):
     #   Speech recognition using Google Speech Recognition
     try:
         #   for testing purposes, we're just using the default API key
@@ -57,6 +57,14 @@ def speech2text():
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
+def captureAudio():
+    #    Record Audio
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Say something!")
+        audio = r.listen(source)
+    speech2text(r)
+
 #  def recHazLog():
 
 
@@ -64,8 +72,11 @@ def speech2text():
 
 
 
+
 def startAnswerCall():
     #  ser = serial.Serial("/dev/ttyUSB0",115200,timeout=3) #  FONA Serial
+    print("insideAnswerCall")
+'''
     if callstate == False:     #  make call
         callstate = True
         #  inputnum=str(input("Enter Phone Number"))
@@ -90,6 +101,8 @@ def startAnswerCall():
             call()
             while innput_value==False:
                 input_value=gpio.input(callbutton)
+'''
+
 
 #  def endCall(channel):
 
@@ -117,11 +130,7 @@ time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
 
 
-#    Record Audio
-r = sr.Recognizer()
-with sr.Microphone() as source:
-    print("Say something!")
-    audio = r.listen(source)
+
 
 
 while 1:
