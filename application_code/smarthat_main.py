@@ -8,6 +8,7 @@ import time
 import os
 import speech_recognition as sr
 import datetime
+import serial
 from pyrebase import pyrebase
 from subprocess import call
 
