@@ -9,7 +9,7 @@ import os
 import speech_recognition as sr
 import datetime
 import serial
-import PyAudio
+#  import PyAudio
 from pyrebase import pyrebase
 from subprocess import call
 
