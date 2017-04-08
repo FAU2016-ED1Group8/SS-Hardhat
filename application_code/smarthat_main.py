@@ -11,6 +11,20 @@ import datetime
 from pyrebase import pyrebase
 from subprocess import call
 
+#    Use the Broadcom SOC Pin numbers
+#    Setup the Pin with Internal pullups enabled and PIN in reading mode.
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(5, GPIO.IN)  #   log hazard
+GPIO.setup(6, GPIO.IN)  #   start end call
+GPIO.setup(13, GPIO.IN)  #   camera
+GPIO.setup(26, GPIO.IN)  #   shutdown
+GPIO.setup(11, GPIO.OUT)  #   laser
+GPIO.setup(9, GPIO.IN)  #   mag sensor ADC1
+GPIO.setup(10, GPIO.IN)  #   mag sensor ADC2
+
+ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
+gpio.setup(callbutton,gpio.IN)  #   input
+
 
 #   Our function on what to do when the button is pressed
 def Shutdown():
@@ -84,19 +98,6 @@ def startAnswerCall():
 
 #   Now wait!
 
-#    Use the Broadcom SOC Pin numbers
-#    Setup the Pin with Internal pullups enabled and PIN in reading mode.
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN)  #   log hazard
-GPIO.setup(6, GPIO.IN)  #   start end call
-GPIO.setup(13, GPIO.IN)  #   camera
-GPIO.setup(26, GPIO.IN)  #   shutdown
-GPIO.setup(11, GPIO.OUT)  #   laser
-GPIO.setup(9, GPIO.IN)  #   mag sensor ADC1
-GPIO.setup(10, GPIO.IN)  #   mag sensor ADC2
-
-ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
-gpio.setup(callbutton,gpio.IN)  #   input
 
 callstate = False
 
