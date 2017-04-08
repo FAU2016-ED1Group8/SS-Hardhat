@@ -141,5 +141,5 @@ while 1:
     GPIO.add_event_detect(6, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
     GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
     GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
-    GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
+    #  GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
     #  time.sleep(1)
