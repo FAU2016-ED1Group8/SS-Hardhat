@@ -18,9 +18,9 @@ GPIO.setup(5, GPIO.IN)  #   log hazard
 GPIO.setup(6, GPIO.IN)  #   start end call
 GPIO.setup(13, GPIO.IN)  #   camera
 GPIO.setup(26, GPIO.IN)  #   shutdown
-GPIO.setup(11, GPIO.OUT)  #   laser
 GPIO.setup(9, GPIO.IN)  #   mag sensor ADC1
 GPIO.setup(10, GPIO.IN)  #   mag sensor ADC2
+GPIO.setup(22, GPIO.OUT)  #   laser
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 gpio.setup(callbutton,gpio.IN)  #   input
