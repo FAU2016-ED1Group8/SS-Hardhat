@@ -20,7 +20,7 @@ pin_warnleds = 24
 pin_buzzer = 26
 
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, pin_magsensor], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup([pin_laser, pin_warnleds, pin_buzzer], GPIO.OUT, initial.GPIO.LOW)
+GPIO.setup([pin_laser, pin_warnleds, pin_buzzer], GPIO.OUT, initial=0)
 
 def cap_image():
     # call(["python3 capture_image.py"])
