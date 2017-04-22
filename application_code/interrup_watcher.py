@@ -36,9 +36,9 @@ def handle(pin):
     t = None
     if pin == btn_camera:
         cap_image()
-    else if pin == btn_phone:
+    elif pin == btn_phone:
         phone_call()
-    else if pin == btn_loghaz:
+    elif pin == btn_loghaz:
         hazard_log()
 
 
