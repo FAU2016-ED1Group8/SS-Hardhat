@@ -8,11 +8,11 @@ GPIO.setmode(GPIO.BOARD)
 # Setting up GPIO
 
 # input buttons
-btn_camera = 29
-btn_phone = 31
+btn_camera = 37
+btn_phone = 35
 btn_loghaz = 33
-btn_shutdown = 35
-pin_magsensor = 37
+btn_shutdown = 31
+pin_magsensor = 29
 
 # output pins
 pin_laser = 22
