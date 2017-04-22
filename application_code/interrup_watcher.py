@@ -35,10 +35,13 @@ def hazard_log():
 def handle(pin):
     t = None
     if pin == btn_camera:
+        print("Camera Handle")
         cap_image()
     elif pin == btn_phone:
+        print("Phone Handle")
         phone_call()
     elif pin == btn_loghaz:
+        print("Haz Handle")
         hazard_log()
 
 
