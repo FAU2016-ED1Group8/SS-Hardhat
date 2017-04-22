@@ -9,7 +9,6 @@ import os
 import speech_recognition as sr
 import datetime
 import serial
-#  import PyAudio
 from pyrebase import pyrebase
 from subprocess import call
 
@@ -20,8 +19,8 @@ GPIO.setup(5, GPIO.IN)  #   log hazard
 GPIO.setup(6, GPIO.IN)  #   start end call
 GPIO.setup(13, GPIO.IN)  #   camera
 GPIO.setup(26, GPIO.IN)  #   shutdown
-GPIO.setup(9, GPIO.IN)  #   mag sensor ADC1
-GPIO.setup(10, GPIO.IN)  #   mag sensor ADC2
+GPIO.setup(9, GPIO.IN)  #   mag sensor 
+
 GPIO.setup(22, GPIO.OUT)  #   laser
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
@@ -136,10 +135,17 @@ time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
 
 
-while 1:
 #    GPIO.add_event_detect(5, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #  board 29
-    GPIO.add_event_detect(6, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
-    GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
-    GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
-    #  GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
-    #  time.sleep(1)
+GPIO.add_event_detect(6, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
+GPIO.add_event_detect(13, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
+GPIO.add_event_detect(26, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
+#  GPIO.add_event_detect(9, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
+
+while 1:
+   try:
+      time.sleep(1)
+   except KeyboardInterrupt:
+      raise	
+   except:
+      print("something went wrong!")
+
