@@ -44,8 +44,8 @@ def handle(pin):
 
 
 GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle)
-GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle)
-GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle)
+GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle)
+GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle)
 
 
 
