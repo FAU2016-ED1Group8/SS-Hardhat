@@ -6,7 +6,7 @@ GPIO.setmode(GPIO.BOARD)
 
 btn_phone = 37
 
-GPIO.setup(btn_camera, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(btn_phone, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 
 def handle(pin):
