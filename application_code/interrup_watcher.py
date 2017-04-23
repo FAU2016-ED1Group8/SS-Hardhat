@@ -33,9 +33,10 @@ def phone_call():
 
 def hazard_log():
     print("Hazard")
-    if ser.write("AT+CGNSPWR=?") == 'OK':
-        gpsLocation = ser.write("AT+CGNSINF")
-        for gpsLatLon in gpsLocation(',')
+    if ser.write("AT+CGNSPWR=?".encode()) == 'OK':
+        gpsLocation = ser.write("AT+CGNSINF".encode())
+        gpsLatLon = gpsLocation.split(',')
+		
         print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
 
 def handle(pin):
