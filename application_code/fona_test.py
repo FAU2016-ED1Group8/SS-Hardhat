@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import serial
+import time
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)

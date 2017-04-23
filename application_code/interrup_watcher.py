@@ -4,7 +4,7 @@ import threading
 from subprocess import call
 import serial
 
-
+ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)
 
 # Setting up GPIO
@@ -42,9 +42,10 @@ def handle(pin):
     elif pin == btn_phone:
         print("Phone Handle")
         inputnum=str('5618438458')
-        ser.write("ATD"+str(inputnum)+";\r")
-
+        sercommand = "ATD"+str(inputnum)
+        ser.write(sercommand.encode())
         phone_call()
+
     elif pin == btn_loghaz:
         print("Haz Handle")
         hazard_log()
@@ -59,4 +60,14 @@ GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle)
 
 
 while True:
-	time.sleep(1e6)
+    try:
+        time.sleep(1e6)
+        
+    except (KeyboardInterrupt, SystemExit):
+        print("User cancelled process")
+        raise
+    except:
+         print("Something went wrong")
+    finally:
+         GPIO.cleanup() 
+	
