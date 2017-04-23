@@ -2,6 +2,8 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from subprocess import call
+import serial
+
 
 GPIO.setmode(GPIO.BOARD)
 
