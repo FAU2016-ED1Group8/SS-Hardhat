@@ -39,6 +39,9 @@ def handle(pin):
         cap_image()
     elif pin == btn_phone:
         print("Phone Handle")
+        inputnum=str('5618438458')
+        ser.write("ATD"+str(inputnum)+";\r")
+
         phone_call()
     elif pin == btn_loghaz:
         print("Haz Handle")
