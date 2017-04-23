@@ -24,6 +24,33 @@ pin_buzzer = 26
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, pin_magsensor], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup([pin_laser, pin_warnleds, pin_buzzer], GPIO.OUT, initial=0)
 
+def sendSerCommand(command):
+    if command == 'getlocation':
+        ser.write("at+cgnspwr=?\n".encode())
+        reply = ''
+        while ser.inWaiting():
+            reply = reply + con.read(1)
+        return reply
+
+def readUntilOK():
+    reply=''
+    while True:
+        x = con.readline()
+        reply += x
+        if x == 'OK\r\n':
+            return reply
+
+# while True:
+#     x = raw_input("At command: ")
+#     if x.strip() == 'q':
+#         break
+#     reply = sendAtCommand(x)
+#     print(reply)
+#
+#
+# con.close()
+
+
 def cap_image():
     # call(["python3 capture_image.py"])
     print("Camera")
@@ -34,9 +61,9 @@ def phone_call():
 def hazard_log():
     print("Hazard")
     if ser.write("AT+CGNSPWR=?".encode()) == 'OK':
-        gpsLocation = ser.write("AT+CGNSINF".encode())
+        gpsLocation = ser.write("AT+CGNSINF\n".encode())
         gpsLatLon = gpsLocation.split(',')
-		
+
         print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
 
 def handle(pin):
@@ -47,7 +74,7 @@ def handle(pin):
     elif pin == btn_phone:
         print("Phone Handle")
         inputnum=str('5618438458')
-        sercommand = "ATD"+str(inputnum)
+        sercommand = "ATD"+str(inputnum)+"\n"
         ser.write(sercommand.encode())
         phone_call()
 
@@ -67,12 +94,12 @@ GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle)
 while True:
     try:
         time.sleep(1e6)
-        
+
     except (KeyboardInterrupt, SystemExit):
         print("User cancelled process")
         raise
     except:
          print("Something went wrong")
     finally:
-         GPIO.cleanup() 
-	
+         GPIO.cleanup()
+         ser.close()
