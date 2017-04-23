@@ -4,7 +4,7 @@ import serial
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)
 
-btn_camera = 37
+btn_phone = 37
 
 GPIO.setup(btn_camera, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
