@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO
-
+import serial
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)
@@ -23,4 +23,4 @@ def startCall():
 GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle)
 
 while True:
-	time.sleep(1e6)    
+	time.sleep(1e6)
