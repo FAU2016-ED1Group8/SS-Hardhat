@@ -61,7 +61,7 @@ def phone_call():
 def hazard_log():
     print("Hazard")
     if ser.write("AT+CGNSPWR=?".encode()) == 'OK':
-        gpsLocation = ser.write("AT+CGNSINF\n".encode())
+        gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
         gpsLatLon = gpsLocation.split(',')
 
         print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
@@ -73,10 +73,11 @@ def handle(pin):
         cap_image()
     elif pin == btn_phone:
         print("Phone Handle")
-        inputnum=str('5618438458')
-        sercommand = "ATD"+str(inputnum)+"\n"
+        inputnum=str('5618438440')
+        sercommand = "ATD"+str(inputnum)+";\r\n"
         ser.write(sercommand.encode())
         phone_call()
+        print('Calling now')
 
     elif pin == btn_loghaz:
         print("Haz Handle")
