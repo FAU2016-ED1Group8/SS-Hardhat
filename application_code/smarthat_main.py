@@ -46,16 +46,40 @@ db = firebase.database()
 def shutdown():
     os.system("sudo shutdown -h 'now'")
 
+def readSerial():
+    response = []
+    while True:
+        line = ser.readline()
+        if not line.strip():  # evaluates to true when an "empty" line is received
+            pass
+        else:
+            response.append(line)
+        return response
+
 def getGPSCoordinates():
     #  try:
-        if ser.write("AT+CGNSPWR=?") == 'OK':
-            gpsLocation = ser.write("AT+CGNSINF")
-            gpsLatLon = gpsLocation.split(',')
-            return (gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
+        ser.write("AT+CGNSPWR?") # Checking if GPS unit is on
+        time.sleep(2)
+        response = readSerial()
+        for line in response:
+            if line[-2][-1:] == "1":
+                gpsLocation = ser.write("AT+CGNSINF")
+                time.sleep(1)
+                gpsResponse = readSerial()
+                if gpsResponse[-1] == 'OK':
+                    gpsLatLon = gpsResponse[0].split(,):
+                    return (gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]) # return list with [lat,lon,tstamp]
+                else:
+                    print("Something went wrong")
+                    return("ERROR acquiring location")
 
+            elif if line[-2:][-1:] == "0":
+                ser.write("AT+CGNSPWR=1") # Turn power on if off
+                time.sleep(1)
+                gpsResponse = readSerial()
+                if gpsResponse[-1] == 'OK':
+                    return getGPSCoordinates()
 
-    #  except:
-        #  log error
 def capturePicture():
     firebase = pyrebase.initialize_app(config)
 
