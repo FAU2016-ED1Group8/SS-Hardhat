@@ -50,7 +50,7 @@ def getGPSCoordinates():
     #  try:
         if ser.write("AT+CGNSPWR=?") == 'OK':
             gpsLocation = ser.write("AT+CGNSINF")
-            for gpsLatLon in gpsLocation(',')
+            gpsLatLon = gpsLocation.split(',')
             return (gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
 
 
