@@ -24,7 +24,7 @@ hazLogBtn = int(29)
 phoneBtn = int(31)
 cameraBtn = int(33)
 shutdown = int(35)
-magSensor = int(3)
+magSensor = int(37)
 # __ output pins __
 laser = int(22)
 wLeds = int(24)
@@ -223,8 +223,8 @@ GPIO.setup(buzzer, GPIO.OUT, initial=0)  #   Buzzer
 GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = recHazLog(), bouncetime = 2000)         #  board 29
 GPIO.add_event_detect(phoneBtn, GPIO.FALLING, callback = callButton(), bouncetime = 2000)      #  board 31
 GPIO.add_event_detect(cameraBtn, GPIO.FALLING, callback = capturePicture(), bouncetime = 2000)   #  board 33
-GPIO.add_event_detect(37, GPIO.FALLING, callback = Shutdown(), bouncetime = 2000)         #  board 37
-GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField(), bouncetime = 2000)         #  board 21
+GPIO.add_event_detect(35, GPIO.FALLING, callback = shutdown(), bouncetime = 2000)         #  board 35
+GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField(), bouncetime = 2000)         #  board 37
 
 
 while True:
