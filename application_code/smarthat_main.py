@@ -43,8 +43,8 @@ firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
 #   Our function on what to do when the button is pressed
-def Shutdown():
-    os.system("sudo shutdown -h now")
+def shutdown():
+    os.system("sudo shutdown -h 'now'")
 
 def getGPSCoordinates():
     #  try:
@@ -220,11 +220,11 @@ GPIO.setup(laser, GPIO.OUT)  #   laser
 GPIO.setup(wLeds, GPIO.OUT)  #   warning LEDs
 GPIO.setup(buzzer, GPIO.OUT, initial=0)  #   Buzzer
 
-GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = recHazLog, bouncetime = 2000)         #  board 29
-GPIO.add_event_detect(phoneBtn, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
-GPIO.add_event_detect(cameraBtn, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
-GPIO.add_event_detect(shutdown, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
-GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
+GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = recHazLog(), bouncetime = 2000)         #  board 29
+GPIO.add_event_detect(phoneBtn, GPIO.FALLING, callback = callButton(), bouncetime = 2000)      #  board 31
+GPIO.add_event_detect(cameraBtn, GPIO.FALLING, callback = capturePicture(), bouncetime = 2000)   #  board 33
+GPIO.add_event_detect(shutdown, GPIO.FALLING, callback = Shutdown(), bouncetime = 2000)         #  board 37
+GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField(), bouncetime = 2000)         #  board 21
 
 
 while True:
