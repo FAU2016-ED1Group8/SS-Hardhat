@@ -23,7 +23,7 @@ from geopy.geocoders import Nominatim
 hazLogBtn = int(29)
 phoneBtn = int(31)
 cameraBtn = int(33)
-shutdown = int(35)
+shutdownBtn = int(35)
 magSensor = int(37)
 # __ output pins __
 laser = int(22)
@@ -213,7 +213,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(hazLogBtn, GPIO.IN)  #   log hazard
 GPIO.setup(phoneBtn, GPIO.IN)  #   start end call
 GPIO.setup(cameraBtn, GPIO.IN)  #   camera
-GPIO.setup(shutdown, GPIO.IN)  #   shutdown
+GPIO.setup(shutdownBtn, GPIO.IN)  #   shutdown
 GPIO.setup(magSensor, GPIO.IN)  #   mag sensor
 
 GPIO.setup(laser, GPIO.OUT)  #   laser
