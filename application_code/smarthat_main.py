@@ -62,13 +62,14 @@ def getGPSCoordinates():
         time.sleep(2)
         response = readSerial()
         for line in response:
-            if str(line[-2])[-1:] == "1":
+            if (line[-2])[-1:] == "1":
                 gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
                 time.sleep(1)
                 gpsResponse = readSerial()
                 if gpsResponse[-1] == 'OK':
                     gpsLatLon = gpsResponse[0].split(',')
-                    return (gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]) # return list with [lat,lon,tstamp]
+                    latLon = (gpsLatLon[3],gpsLatLon[4])
+                    return latLon # return list with [lat,lon,tstamp]
                 else:
                     print("Something went wrong")
                     return("ERROR acquiring location")
