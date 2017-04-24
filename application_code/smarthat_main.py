@@ -223,7 +223,7 @@ GPIO.setup(buzzer, GPIO.OUT, initial=0)  #   Buzzer
 GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = recHazLog(), bouncetime = 2000)         #  board 29
 GPIO.add_event_detect(phoneBtn, GPIO.FALLING, callback = callButton(), bouncetime = 2000)      #  board 31
 GPIO.add_event_detect(cameraBtn, GPIO.FALLING, callback = capturePicture(), bouncetime = 2000)   #  board 33
-GPIO.add_event_detect(shutdown, GPIO.FALLING, callback = Shutdown(), bouncetime = 2000)         #  board 37
+GPIO.add_event_detect(37, GPIO.FALLING, callback = Shutdown(), bouncetime = 2000)         #  board 37
 GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField(), bouncetime = 2000)         #  board 21
 
 
