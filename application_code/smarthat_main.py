@@ -62,7 +62,7 @@ def getGPSCoordinates():
         time.sleep(2)
         response = readSerial()
         for line in response:
-            if line[-2][-1:] == "1":
+            if str(line[-2])[-1:] == "1":
                 gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
                 time.sleep(1)
                 gpsResponse = readSerial()
