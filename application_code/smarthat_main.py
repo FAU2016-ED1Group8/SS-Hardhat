@@ -66,7 +66,7 @@ def recHazLog():
 
     #time variable
     now = datetime.datetime.now()
-    time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
+    timeStr = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
     #dummy message to write to database
     message = "Huckleberry"
@@ -106,7 +106,7 @@ def recHazLog():
         for p in k:
             if vincenty(loc_of_report, p).miles <= 2:                               #does the compare and the radius of 2 miles
                     print(k.index(p))                                               #prints the index of the subsation
-                    data = {"hazardreport": google_translate, "date": time}         #variable that will be written to the database
+                    data = {"hazardreport": google_translate, "date": timeStr}         #variable that will be written to the database
                     db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
             else:
                     print("no match")                                               #have to do something else in the future. Not known yet.
@@ -159,7 +159,7 @@ def callButton():
 
 #    time variable
 now = datetime.datetime.now()
-time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
+timeStr = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 #  time = str(datetime.datetime.now())
 
 GPIO.setmode(GPIO.BOARD)
