@@ -181,10 +181,15 @@ GPIO.add_event_detect(shutdown, GPIO.FALLING, callback = Shutdown, bouncetime = 
 GPIO.add_event_detect(magSensor, GPIO.FALLING, callback = checkMagField, bouncetime = 2000)         #  board 21
 
 
-while 1:
-   try:
-      time.sleep(1)
-   except KeyboardInterrupt:
-      raise
-   except:
-      print("something went wrong!")
+while True:
+    try:
+        time.sleep(1e6)
+
+    except (KeyboardInterrupt, SystemExit):
+        print("User cancelled process")
+        raise
+    except:
+         print("Something went wrong")
+    finally:
+         GPIO.cleanup()
+         ser.close()
