@@ -117,7 +117,7 @@ def recHazLog():
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
 
-def magField():
+def checkMagField():
     print("magnetic field detected")
 
 
@@ -174,7 +174,7 @@ GPIO.setup(laser, GPIO.OUT)  #   laser
 GPIO.setup(wLeds, GPIO.OUT)  #   warning LEDs
 GPIO.setup(buzzer, GPIO.OUT, initial=0)  #   Buzzer
 
-GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = logHazard, bouncetime = 2000)         #  board 29
+GPIO.add_event_detect(hazLogBtn, GPIO.FALLING, callback = recHazLog, bouncetime = 2000)         #  board 29
 GPIO.add_event_detect(phoneBtn, GPIO.FALLING, callback = callButton, bouncetime = 2000)      #  board 31
 GPIO.add_event_detect(cameraBtn, GPIO.FALLING, callback = capturePicture, bouncetime = 2000)   #  board 33
 GPIO.add_event_detect(shutdown, GPIO.FALLING, callback = Shutdown, bouncetime = 2000)         #  board 37
