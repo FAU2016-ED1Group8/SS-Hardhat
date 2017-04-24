@@ -57,9 +57,41 @@ def getGPSCoordinates():
     #  except:
         #  log error
 def capturePicture():
-    #  add naming code for image
-    call(["fswebcam -r 640x480 --save image4.jpg"])
-    print("image4 captured")
+    firebase = pyrebase.initialize_app(config)
+
+    now = dt.today().strftime("%Y%m%d%H%M%S")
+    file_name = now + '.jpg'
+    file_w_path = 'fswebcam -r 640x480 -S 3 --jpeg 50 --save /home/pi/SS-Hardhat/application_code/images/'+file_name
+    os.system('fswebcam -r 640x480 -S 3 --jpeg 50 --save /home/pi/SS-Hardhat/application_code/images/'+file_name)
+    print(file_w_path)
+
+    #####################################################################
+    #####################Write to Storage################################
+    #####################################################################
+
+    print(file_name)
+    storage = firebase.storage()
+    #storage.child("Camera/"+"forest").put("/home/pi/Desktop/images/forest.jpg")
+    storage.child("Camera/"+file_name).put("/home/pi/SS-Hardhat/application_code/images/"+file_name)
+
+    #####################################################################
+    ####################Write to Database################################
+    #####################################################################
+    db = firebase.database()
+
+    #time variable
+    now = datetime.datetime.now()
+    time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
+    token = None
+
+    imageUrl = storage.child("Camera/"+file_name).get_url(token)
+
+    #variable that will be written to the database
+    data = {"ImageName":imageUrl, "date": time}
+    db.child("Camera Data").push(data)
+
+
+    print("success!")
 
 
 def recHazLog():
@@ -118,44 +150,58 @@ def recHazLog():
 
 
 def checkMagField():
+    # set warning lebPin t
     print("magnetic field detected")
-
+    for c in range(1,15):
+        GPIO.output(wLeds,GPIO.HIGH)
+        time.sleep(1)
+        GPIO.output(wLeds,GPIO.LOW)
+        time.sleep(.5)
 
 def startCall():
-    #  ser = serial.Serial("/dev/ttyUSB0",115200,timeout=3) #  FONA Serial
-    print("insideStartCall")
-
-    inputnum=str('5618438458')
-    ser.write("ATD"+str(inputnum)+";\r")
-    ser.close()
-    #
-    # else:   #   answercall():
-    #     print("Answering Call")
-    #     ser.write("ATA\r")
-    #     data=""
-    #     data=ser.read(10)
-    #
-    #
-    # while True :
-    #     input_value=gpio.input(callbutton)
-    #     if input_value==False:  #  bcall button is pressed
-    #         print ("press")
-    #         call()
-    #         while innput_value==False:
-    #             input_value=gpio.input(callbutton)
+    #print("insideStartCall")
+    numberToDial = '5618438458' # getNumber()
+    inputnum=str(numberToDial)
+    ser.write("ATD"+str(inputnum)+";\r\n".encode())
+    response = ser.readline()
+    time.sleep(10)
+    if response == "OK" :
+        ser.close()
+    else:
+        print("Something went wrong")
 
 
-
-#  def endCall(channel):
+def endCall(channel):
 
 #   Add our function to execute when the button pressed event happens / function called on button down
-
+    ser.write("ATH".encode())
+    time.sleep(5)
+    if response == "OK" :
+        ser.close()
+    else:
+        print("Something went wrong")
 #   Now wait!
 
 def callButton():
     print("Call function")
-    # callState = ser.write('')
-    startCall()
+    ser.write("AT+CPAS".encode())
+    time.sleep(.5)
+    while True:
+        line = ser.readline()
+        if not line.strip():  # evaluates to true when an "empty" line is received
+            pass
+        elif line == "OK" or line == "ERROR":
+            break
+        else:
+            if line[-1:] == "0":
+                startCall()
+            elif line[-1:] == "4":
+                endCall()
+            else:
+                time.sleep(1)
+                pass
+
+
 
 #    time variable
 now = datetime.datetime.now()
