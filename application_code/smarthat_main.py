@@ -114,8 +114,8 @@ def recHazLog():
     k =  list (zip(station_lat, station_long))
 
     #dummy long/lat coordinates for location of hazard report
-    loc_of_report = (latitude, longitude)
-
+    latLon = getGPSCoordinates()
+    loc_of_report = (latLon[0], latLon[1])
     # Record Audio
     r = sr.Recognizer()
     with sr.Microphone() as source:
