@@ -20,15 +20,15 @@ from geopy.geocoders import Nominatim
 #    Setup the Pin with Internal pullups enabled and PIN in reading mode.
 
 # __ input pins__
-hazLogBtn = 29
-phoneBtn = 31
-cameraBtn = 33
-shutdown = 35
-magSensor = 37
+hazLogBtn = int(29)
+phoneBtn = int(31)
+cameraBtn = int(33)
+shutdown = int(35)
+magSensor = int(3)
 # __ output pins __
-laser = 22
-wLeds = 24
-buzzer = 26
+laser = int(22)
+wLeds = int(24)
+buzzer = int(26)
 
 ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 
