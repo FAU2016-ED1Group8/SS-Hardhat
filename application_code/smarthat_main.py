@@ -58,12 +58,12 @@ def readSerial():
 
 def getGPSCoordinates():
     #  try:
-        ser.write("AT+CGNSPWR?") # Checking if GPS unit is on
+        ser.write("AT+CGNSPWR?\r\n".encode()) # Checking if GPS unit is on
         time.sleep(2)
         response = readSerial()
         for line in response:
             if line[-2][-1:] == "1":
-                gpsLocation = ser.write("AT+CGNSINF")
+                gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
                 time.sleep(1)
                 gpsResponse = readSerial()
                 if gpsResponse[-1] == 'OK':
@@ -74,7 +74,7 @@ def getGPSCoordinates():
                     return("ERROR acquiring location")
 
             elif line[-2:][-1:] == "0":
-                ser.write("AT+CGNSPWR=1") # Turn power on if off
+                ser.write("AT+CGNSPWR=1\r\n".encode()) # Turn power on if off
                 time.sleep(1)
                 gpsResponse = readSerial()
                 if gpsResponse[-1] == 'OK':
@@ -208,7 +208,7 @@ def endCall(channel):
 
 def callButton():
     print("Call function")
-    ser.write("AT+CPAS".encode())
+    ser.write("AT+CPAS\r\n".encode())
     time.sleep(.5)
     while True:
         line = ser.readline()
