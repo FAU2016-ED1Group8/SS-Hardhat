@@ -132,8 +132,8 @@ def start_call():
 
     print('Calling now: $d' % inputnum)
 
-def end _call():
-
+def end_call():
+    print("ending call")
 
 def record_audio():
     r = sr.Recognizer()
