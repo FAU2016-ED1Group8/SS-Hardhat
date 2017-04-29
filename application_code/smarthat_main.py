@@ -62,7 +62,8 @@ def getGPSCoordinates():
         time.sleep(2)
         response = readSerial()
         for line in response:
-            if (line[-2])[-1:] == "1":
+            print(line)
+'''            if (line[-2])[-1:] == "1":
                 gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
                 time.sleep(1)
                 gpsResponse = readSerial()
@@ -74,13 +75,13 @@ def getGPSCoordinates():
                     print("Something went wrong")
                     return("ERROR acquiring location")
 
-            elif line[-2:][-1:] == "0":
+            elif line[-2][-1:] == "0":
                 ser.write("AT+CGNSPWR=1\r\n".encode()) # Turn power on if off
                 time.sleep(1)
                 gpsResponse = readSerial()
                 if gpsResponse[-1] == 'OK':
                     return getGPSCoordinates()
-
+'''
 def capturePicture():
     firebase = pyrebase.initialize_app(config)
 
@@ -139,7 +140,8 @@ def recHazLog():
     k =  list (zip(station_lat, station_long))
 
     #dummy long/lat coordinates for location of hazard report
-    latLon = getGPSCoordinates()
+#    latLon = getGPSCoordinates()
+    latLon = "0.0,0.0"
     loc_of_report = (latLon[0], latLon[1])
     # Record Audio
     r = sr.Recognizer()
