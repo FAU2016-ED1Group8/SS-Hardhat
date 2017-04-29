@@ -1,4 +1,4 @@
-#!/home/SS-Hardhat/tractus/bin/python
+#!/home/pi/SS-Hardhat/tractus/bin/python
 import RPi.GPIO as GPIO
 import time
 import os
