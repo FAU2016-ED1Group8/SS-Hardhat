@@ -144,7 +144,7 @@ def handle(pin):
 GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle, bouncetime = 2000)
 GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle, bouncetime = 2000)
 GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle, bouncetime = 2000)
-GPIO.add_event_detect(btn_shudown, GPIO.FALLING, handle, bouncetime = 2000)
+GPIO.add_event_detect(btn_shutdown, GPIO.FALLING, handle, bouncetime = 2000)
 
 
 
