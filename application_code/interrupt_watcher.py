@@ -94,7 +94,7 @@ def cap_image():
     db = firebase.database()
 
     #time variable
-    now = dt.datetime.now()
+    now = dt.now()
     time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
     token = None
 
