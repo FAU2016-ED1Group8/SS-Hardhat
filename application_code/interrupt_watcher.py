@@ -109,11 +109,8 @@ def phone_call():
     print("Phone")
     inputnum = voice_dial()
     #inputnum=str('5618438458')
-    # sercommand = "ATD"+str(inputnum)+";\r\n"
-    # ser.write(sercommand.encode())
-    # phone_call()
-    # time.sleep(20)
-    # ser.write("ATH".encode())
+
+
     print('Calling now')
 
 def record_audio():
@@ -134,6 +131,7 @@ def record_audio():
         return "Google Speech Recognition could not understand audio"
     except sr.RequestError as e:
         return "Could not request results from Google Speech Recognition service; {0}".format(e)
+
 
 def voice_dial():
     #retrieves number of contacts from firebase
@@ -174,7 +172,7 @@ def voice_dial():
 
 def hazard_log():
     print("Hazard")
-    if ser.write("AT+CGNSPWR=?".encode()) == 'OK':
+    if ser.write("AT+CGNSPWR=?".encode()) == 'OK': #move this to initialization function
         gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
         gpsLatLon = gpsLocation.split(',')
 
