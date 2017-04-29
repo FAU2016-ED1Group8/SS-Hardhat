@@ -39,7 +39,7 @@ pin_buzzer = 26 # mv to 13
 
 
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, in_fona_ring, in_fona_state], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup([pin_laser, pin_warnleds, pin_buzzer], GPIO.OUT, initial=0)
+GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
 def sendSerCommand(command):
     if command == 'getlocation':
