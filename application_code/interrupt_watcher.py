@@ -201,7 +201,7 @@ def check_gps_power():
             ser.write("AT+CGNSPWR=1".encode())
             time.sleep(.3)
             check_gps_power()
-        elif line == "+CGNSPWR: 1"
+        elif line == "+CGNSPWR: 1":
             return 1
 def hazard_log():
     print("Hazard")
