@@ -27,18 +27,18 @@ ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)
 # Setting up GPIO
 # input buttons
-btn_camera = 33
-btn_phone = 31
-btn_loghaz = 29
-btn_shutdown = 35
-pin_magsensor = 37
-
+btn_camera = 33 # mv to 7
+btn_phone = 31 # mv to 3
+btn_loghaz = 29 # mv to 5
+btn_shutdown = 35 # mv to 15
+in_fona_ring = 12
+in_fona_state = 16
 # output pins
-pin_laser = 22
-pin_warnleds = 24
-pin_buzzer = 26
+pin_laser = 22 # mv to 11
+pin_buzzer = 26 # mv to 13
 
-GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, pin_magsensor], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, in_fona_ring, in_fona_state], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup([pin_laser, pin_warnleds, pin_buzzer], GPIO.OUT, initial=0)
 
 def sendSerCommand(command):
