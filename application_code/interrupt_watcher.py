@@ -43,21 +43,31 @@ pin_buzzer = 26 # mv to 13
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, in_fona_ring, in_fona_state], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
-def sendSerCommand(command):
-    if command == 'getlocation':
-        ser.write("at+cgnspwr=?\n".encode())
-        reply = ''
-        while ser.inWaiting():
-            reply = reply + con.read(1)
-        return reply
+# def sendSerCommand(command):
+#     if command == 'getlocation':
+#         ser.write("at+cgnspwr=?\n".encode())
+#         reply = ''
+#         while ser.inWaiting():
+#             reply = reply + con.read(1)
+#         return reply
 
-def readUntilOK():
-    reply=''
+def read_serial():
+    response = []
     while True:
-        x = con.readline()
-        reply += x
-        if x == 'OK\r\n':
-            return reply
+        line = ser.readline()
+        if not line.strip():  # evaluates to true when an "empty" line is received
+            pass
+        else:
+            response.append(line)
+        return response
+#
+# def readUntilOK():
+#     reply=''
+#     while True:
+#         x = con.readline()
+#         reply += x
+#         if x == 'OK\r\n':
+#             return reply
 
 # while True:
 #     x = raw_input("At command: ")
@@ -107,13 +117,23 @@ def cap_image():
 
     print("success!")
 
-def phone_call():
-    print("Phone")
+def check_phone_state():
+    print("Checking for dialtone")
+    # if dialtone start_call()
+    # elif no_dialton end_call()
+
+
+
+def start_call():
+    print("Starting call")
     inputnum = voice_dial()
     #inputnum=str('5618438458')
-
+    start_call(inputnum)
 
     print('Calling now: $d' % inputnum)
+
+def end _call():
+
 
 def record_audio():
     r = sr.Recognizer()
@@ -172,13 +192,63 @@ def voice_dial():
 
     return(phone_string)
 
+def check_gps_power():
+    checkGPS_write = ser.write("AT+CGNSPWR?".encode())
+    time.sleep(.3)
+    gpsPwrResponse = read_serial()
+    for line in gpsPwrResponse:
+        if line == "+CGNSPWR: 0":
+            ser.write("AT+CGNSPWR=1".encode())
+            time.sleep(.3)
+            check_gps_power()
+        elif line == "+CGNSPWR: 1"
+            return 1
 def hazard_log():
     print("Hazard")
-    if ser.write("AT+CGNSPWR=?".encode()) == 'OK': #move this to initialization function
-        gpsLocation = ser.write("AT+CGNSINF\r\n".encode())
-        gpsLatLon = gpsLocation.split(',')
+    if check_gps_power():
+    # gpsLatLon = []
+        for line in read_serial():
+            if line == "OK":
+                gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
+                time.sleep(1)
+                gpsResponse = read_serial()
+                gpsLatLon = split
+                latitude = gpsLatLon[3]
+                longitude = gpsLatLon[4]
 
-        print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2])
+
+        # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
+        now = dt.now()
+        time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
+
+        #dummy message to write to database
+        message = "Huckleberry"
+
+
+        #retrieves number of substations from firebase
+        num_of_substations = list(range(len([users.key() for users in (db.child("Substation Data").get()).each()])))
+
+        #gets the latitude/longtitude of each substation from firebase
+        station_lat = [(db.child("Substation Data").child(str(x)).child("latitude").get()).val() for x in num_of_substations ]
+        station_long = [(db.child("Substation Data").child(str(x)).child("longitude").get()).val() for x in num_of_substations ]
+
+        #variables that holds the lat/long coordinates of the subsations
+        k =  list (zip(station_lat, station_long))
+
+        #dummy long/lat coordinates for location of hazard report
+        loc_of_report = (latitude, longitude)
+
+        hazard_string = str(record_audio())
+        #hazard_string = str("hello this is a test")
+
+        #loop that will write the report to firebase (it will write to a specific node in the database)
+        for p in k:
+            if vincenty(loc_of_report, p).miles <= 2:                               #does the compare and the radius of 2 miles
+                        print(k.index(p))                                               #prints the index of the subsation
+                        data = {"hazardreport": hazard_string, "date": time}         #variable that will be written to the database
+                        db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
+            else:
+                        print("no match")                                               #have to do something else in the future. Not known yet.
 
 def shutdown():
     print("System is shutting down")

@@ -11,7 +11,7 @@ def record_audio():
     with sr.Microphone() as source:
         print("Say something!")
         audio = r.listen(source)
-     
+
     #Speech recognition using Google Speech Recognition
     try:
         # for testing purposes, we're just using the default API key
@@ -42,7 +42,7 @@ longitude = -80.208465
 latitude =  26.646333
 
 #time variable
-now = datetime.datetime.now()
+now = dt.now()
 time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
 #dummy message to write to database
@@ -64,7 +64,7 @@ loc_of_report = (latitude, longitude)
 
 hazard_string = str(record_audio())
 #hazard_string = str("hello this is a test")
- 
+
 #loop that will write the report to firebase (it will write to a specific node in the database)
 for p in k:
     if vincenty(loc_of_report, p).miles <= 2:                               #does the compare and the radius of 2 miles
@@ -73,9 +73,3 @@ for p in k:
                 db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
     else:
                 print("no match")                                               #have to do something else in the future. Not known yet.
-
-
-
-
-
-
