@@ -32,7 +32,6 @@ GPIO.setmode(GPIO.BOARD)
 btn_camera = 7 # mv to 7
 btn_phone = 3 # mv to 3
 btn_loghaz = 5 # mv to 5
-btn_shutdown = 15 # mv to 15
 in_fona_ring = 12
 in_fona_state = 16
 # output pins
@@ -41,7 +40,7 @@ pin_buzzer = 23
 
 
 
-GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, in_fona_ring, in_fona_state], GPIO.IN)
+GPIO.setup([btn_camera, btn_phone, btn_loghaz, in_fona_ring, in_fona_state], GPIO.IN)
 GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 # def sendSerCommand(command):
 #     if command == 'getlocation':
@@ -250,10 +249,6 @@ def hazard_log():
             else:
                         print("no match")                                               #have to do something else in the future. Not known yet.
 
-def shutdown():
-    print("System is shutting down")
-    os.system("sudo shutdown -h 'now'")
-
 def handle(pin):
     t = None
     if pin == btn_camera:
@@ -267,14 +262,9 @@ def handle(pin):
         print("Haz Handle")
         hazard_log()
 
-    elif pin == btn_shutdown:
-        shutdown()
-
-
 GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle, bouncetime = 2000)
 GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle, bouncetime = 2000)
 GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle, bouncetime = 2000)
-GPIO.add_event_detect(btn_shutdown, GPIO.FALLING, handle, bouncetime = 2000)
 
 
 
