@@ -113,7 +113,7 @@ def phone_call():
     #inputnum=str('5618438458')
 
 
-    print('Calling now')
+    print('Calling now: $d' % inputnum)
 
 def record_audio():
     r = sr.Recognizer()
