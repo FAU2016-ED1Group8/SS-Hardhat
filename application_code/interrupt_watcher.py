@@ -1,4 +1,5 @@
-#!/home/pi/SS-Hardhat/tractus/bin/python
+#!/home/SS-Hardhat/tractus/bin/python
+/SS-Hardhat/tractus/bin/python
 import RPi.GPIO as GPIO
 import time
 import os
@@ -93,7 +94,7 @@ def cap_image():
     db = firebase.database()
 
     #time variable
-    now = datetime.datetime.now()
+    now = dt.datetime.now()
     time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
     token = None
 
