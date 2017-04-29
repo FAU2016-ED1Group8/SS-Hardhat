@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import os
 import speech_recognition as sr
-import datetime import datetime as dt
+from datetime import datetime as dt
 import serial
 from pyrebase import pyrebase
 from subprocess import call
