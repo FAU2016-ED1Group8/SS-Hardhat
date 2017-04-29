@@ -29,20 +29,20 @@ ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
 GPIO.setmode(GPIO.BOARD)
 # Setting up GPIO
 # input buttons
-btn_camera = 33 # mv to 7
-btn_phone = 31 # mv to 3
-btn_loghaz = 29 # mv to 5
-btn_shutdown = 35 # mv to 15
+btn_camera = 7 # mv to 7
+btn_phone = 3 # mv to 3
+btn_loghaz = 5 # mv to 5
+btn_shutdown = 15 # mv to 15
 in_fona_ring = 12
 in_fona_state = 16
 # output pins
-pin_laser = 22 # mv to 11
-pin_buzzer = 26 # mv to 13
+pin_laser = 11 # mv to 11
+pin_buzzer = 23
+
 
 
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, btn_shutdown, in_fona_ring, in_fona_state], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
-
 # def sendSerCommand(command):
 #     if command == 'getlocation':
 #         ser.write("at+cgnspwr=?\n".encode())
