@@ -106,3 +106,6 @@ def hazard_log():
                         db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
             else:
                         print("no match")
+
+
+hazard_log()
