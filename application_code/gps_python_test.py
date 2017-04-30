@@ -50,7 +50,9 @@ def check_gps_power():
     time.sleep(.3)
     gpsPwrResponse = read_serial()
     for line in gpsPwrResponse:
+        print(line)
         if line == "+CGNSPWR: 0":
+            print(line)
             ser.write("AT+CGNSPWR=1".encode())
             time.sleep(.3)
             check_gps_power()
