@@ -64,6 +64,7 @@ def hazard_log():
     if check_gps_power():
     # gpsLatLon = []
         for line in read_serial():
+            print(line)
             if line == "OK":
                 gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
                 time.sleep(1)
@@ -94,8 +95,8 @@ def hazard_log():
         #dummy long/lat coordinates for location of hazard report
         loc_of_report = (latitude, longitude)
 
-        hazard_string = str(record_audio())
-        #hazard_string = str("hello this is a test")
+        #hazard_string = str(record_audio())
+        hazard_string = str("hello this is a test")
 
         #loop that will write the report to firebase (it will write to a specific node in the database)
         for p in k:
