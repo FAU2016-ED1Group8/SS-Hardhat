@@ -1,5 +1,3 @@
-
-
 #!/home/pi/SS-Hardhat/tractus/bin/python
 
 import RPi.GPIO as GPIO
