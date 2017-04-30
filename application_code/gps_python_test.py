@@ -66,11 +66,11 @@ def check_gps_power():
             check_gps_power()
         elif line == "+CGNSPWR: 1":
             print("GPS in ON")
-            return
+            return True
 
 def hazard_log():
     print("Hazard")
-    if check_gps_power():
+    while check_gps_power():
     # gpsLatLon = []
         for line in read_serial():
             print(line)
