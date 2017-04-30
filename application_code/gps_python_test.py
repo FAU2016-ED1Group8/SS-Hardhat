@@ -45,13 +45,17 @@ GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
 def read_serial():
     response = []
+    print("inside read serial")
     while True:
+        print("inside read serial - while")
         line = ser.readline()
         print(line)
         if not line.strip():  # evaluates to true when an "empty" line is received
+            print("inside read serial - blank line")
             pass
         else:
             response.append(line)
+            print("line: $s" % line)
         return response
 
 def check_gps_power():
