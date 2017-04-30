@@ -119,16 +119,16 @@ def cap_image():
 def check_phone_state():
     print("Checking for dialtone")
     # if dialtone start_call()
+    inputnum=str('5618438458')
+    start_call(inputnum)
     # elif no_dialton end_call()
 
 
 
-def start_call():
+def start_call(inputnum):
     print("Starting call")
-    inputnum = voice_dial()
-    #inputnum=str('5618438458')
-    start_call(inputnum)
-
+    callingVar = 'ATD$d;\r\n' % inputnum
+    ser.write(callingVar.encode())
     print('Calling now: $d' % inputnum)
 
 def end_call():
