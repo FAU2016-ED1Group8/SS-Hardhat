@@ -43,26 +43,26 @@ pin_buzzer = 23
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, in_fona_ring, in_fona_state], GPIO.IN)
 GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
-def read_serial():
-    response = []
-    print("inside read serial")
-    while True:
-        print("inside read serial - while")
-        line = ser.readline()
-        print(line)
-        if not line.strip():  # evaluates to true when an "empty" line is received
-            print("inside read serial - blank line")
-            pass
-        else:
-            response.append(line)
-            print("line: $s" % line)
-        return response
+# def read_serial():
+#     response = []
+#     print("inside read serial")
+#     while True:
+#         print("inside read serial - while")
+#         line = ser.readline()
+#         print(line)
+#         if not line.strip():  # evaluates to true when an "empty" line is received
+#             print("inside read serial - blank line")
+#             pass
+#         else:
+#             response.append(line)
+#             print("line: $s" % line)
+#         return response
 
 def check_gps_power():
     checkGPS_write = ser.write("AT+CGNSPWR?".encode())
     time.sleep(.3)
-    gpsPwrResponse = read_serial()
-    for line in gpsPwrResponse:
+    #gpsPwrResponse = read_serial()
+    for line in ser.readline():
         print(line)
         if line == "+CGNSPWR: 0":
             print(line)
@@ -78,7 +78,7 @@ def hazard_log():
     check_gps_power()
     # gpsLatLon = []
     gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
-    for line in read_serial():
+    for line in ser.readline:
         print(line)
         if line == "OK":
 
