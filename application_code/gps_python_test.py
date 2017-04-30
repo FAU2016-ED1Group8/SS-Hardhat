@@ -43,7 +43,15 @@ pin_buzzer = 23
 GPIO.setup([btn_camera, btn_phone, btn_loghaz, in_fona_ring, in_fona_state], GPIO.IN)
 GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
-
+def read_serial():
+    response = []
+    while True:
+        line = ser.readline()
+        if not line.strip():  # evaluates to true when an "empty" line is received
+            pass
+        else:
+            response.append(line)
+        return response
 
 def check_gps_power():
     checkGPS_write = ser.write("AT+CGNSPWR?".encode())
