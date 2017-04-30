@@ -47,6 +47,7 @@ def read_serial():
     response = []
     while True:
         line = ser.readline()
+        print(line)
         if not line.strip():  # evaluates to true when an "empty" line is received
             pass
         else:
@@ -70,51 +71,52 @@ def check_gps_power():
 
 def hazard_log():
     print("Hazard")
-    while check_gps_power():
+    check_gps_power()
     # gpsLatLon = []
-        for line in read_serial():
-            print(line)
-            if line == "OK":
-                gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
-                time.sleep(1)
-                gpsResponse = read_serial()
-                gpsLatLon = split
-                latitude = gpsLatLon[3]
-                longitude = gpsLatLon[4]
+    gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
+    for line in read_serial():
+        print(line)
+        if line == "OK":
+
+            time.sleep(1)
+            gpsResponse = read_serial()
+            gpsLatLon = split
+            latitude = gpsLatLon[3]
+            longitude = gpsLatLon[4]
 
 
-        # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
-        now = dt.now()
-        time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
+    # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
+    now = dt.now()
+    time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
-        #dummy message to write to database
-        message = "Huckleberry"
+    #dummy message to write to database
+    message = "Huckleberry"
 
 
-        #retrieves number of substations from firebase
-        num_of_substations = list(range(len([users.key() for users in (db.child("Substation Data").get()).each()])))
+    #retrieves number of substations from firebase
+    num_of_substations = list(range(len([users.key() for users in (db.child("Substation Data").get()).each()])))
 
-        #gets the latitude/longtitude of each substation from firebase
-        station_lat = [(db.child("Substation Data").child(str(x)).child("latitude").get()).val() for x in num_of_substations ]
-        station_long = [(db.child("Substation Data").child(str(x)).child("longitude").get()).val() for x in num_of_substations ]
+    #gets the latitude/longtitude of each substation from firebase
+    station_lat = [(db.child("Substation Data").child(str(x)).child("latitude").get()).val() for x in num_of_substations ]
+    station_long = [(db.child("Substation Data").child(str(x)).child("longitude").get()).val() for x in num_of_substations ]
 
-        #variables that holds the lat/long coordinates of the subsations
-        k =  list (zip(station_lat, station_long))
+    #variables that holds the lat/long coordinates of the subsations
+    k =  list (zip(station_lat, station_long))
 
-        #dummy long/lat coordinates for location of hazard report
-        loc_of_report = (latitude, longitude)
+    #dummy long/lat coordinates for location of hazard report
+    loc_of_report = (latitude, longitude)
 
-        #hazard_string = str(record_audio())
-        hazard_string = str("hello this is a test")
+    #hazard_string = str(record_audio())
+    hazard_string = str("hello this is a test")
 
-        #loop that will write the report to firebase (it will write to a specific node in the database)
-        for p in k:
-            if vincenty(loc_of_report, p).miles <= 2:                               #does the compare and the radius of 2 miles
-                        print(k.index(p))                                               #prints the index of the subsation
-                        data = {"hazardreport": hazard_string, "date": time}         #variable that will be written to the database
-                        db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
-            else:
-                        print("no match")
+    #loop that will write the report to firebase (it will write to a specific node in the database)
+    for p in k:
+        if vincenty(loc_of_report, p).miles <= 2:                               #does the compare and the radius of 2 miles
+                    print(k.index(p))                                               #prints the index of the subsation
+                    data = {"hazardreport": hazard_string, "date": time}         #variable that will be written to the database
+                    db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
+        else:
+                    print("no match")
 
 
 hazard_log()
