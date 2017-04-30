@@ -65,7 +65,8 @@ def check_gps_power():
             time.sleep(.3)
             check_gps_power()
         elif line == "+CGNSPWR: 1":
-            return 1
+            print("GPS in ON")
+            return
 
 def hazard_log():
     print("Hazard")
