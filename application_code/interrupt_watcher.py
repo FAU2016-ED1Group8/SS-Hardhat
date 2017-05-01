@@ -251,7 +251,7 @@ def hazard_log():
         # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
     longitude = -80.208465
     latitude =  26.646333
-    
+
     now = dt.now()
     time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
 
@@ -322,4 +322,3 @@ while True:
     finally:
          GPIO.cleanup()
          ser.close()
-
