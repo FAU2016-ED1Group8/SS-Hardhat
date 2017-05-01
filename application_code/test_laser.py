@@ -26,9 +26,7 @@ def cap_image():
 
 
 
-GPIO.add_event_detect(btn_camera, GPIO.FALLING, laser_on, bouncetime = 2000)
-GPIO.add_event_detect(btn_camera, GPIO.RISING, handle, bouncetime = 2000)
-
+GPIO.add_event_detect(btn_camera, GPIO.BOTH, laser_on, bouncetime = 2000)
 
 
 while True:
