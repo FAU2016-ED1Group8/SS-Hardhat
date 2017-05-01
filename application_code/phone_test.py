@@ -16,12 +16,20 @@ from fuzzywuzzy import process
 
 def check_phone_state():
     print("Checking for dialtone")
-    # if dialtone start_call()
+    # if dialtone start_call
+    sercom = "at+cpas\r"
+    ser.write(sercom.encode())
+    while True:
+        try:
+            state=ser.readline()
+            print(state)
+        except:
+            pass
+    
+    ser.read()
     inputnum=str('5618438458')
     start_call(inputnum)
     # elif no_dialton end_call()
-
-
 
 def start_call(inputnum):
     print("Starting call")
