@@ -101,19 +101,19 @@ def hazard_log():
     # check_gps_power()
     gpsLatLon = []
     ser.write("AT+CGNSINF\r".encode())
-    sleep(.1)
+    sleep(.1)
     while True:
         try:
             state=ser.readline()
             # print(state)
-            if str(state,'ascii').[:10]=='+CGNSINF: 1':
+            if str(state,'ascii')[:10]=='+CGNSINF: 1':
                 print(state)
                 gpsLatLon = str(state,'ascii').split(",")
                 for ll in gpsLatLon:
                     print(ll)
                 ser.close()
                 return
-            elif str(state,'ascii').[:10]=='+CGNSINF: 0':
+            elif str(state,'ascii')[:10]=='+CGNSINF: 0':
                 print(state)
                 ser.close()
                 return
