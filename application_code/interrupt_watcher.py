@@ -121,8 +121,9 @@ def cap_image():
 def check_phone_state():
     print("Checking for dialtone")
     # if dialtone start_call()
+    inputnum = voice_dial()
     # inputnum=str('5618438458')
-    inputnum=str('9547099911')
+    #inputnum=str('9547099911')
     start_call(inputnum)
     # elif no_dialton end_call()
 
