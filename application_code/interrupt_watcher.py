@@ -141,10 +141,12 @@ def check_phone_state():
             if str(state,'ascii')=='+CPAS: 0\r\n':
                 print("Phone ready")
                 start_call()
+                break
             elif str(state,'ascii')=='+CPAS: 4\r\n':
                 print("Ending call")
                 sercom = "ath\r"
                 ser.write(sercom.encode())
+                break
         except:
             pass
     return
@@ -156,6 +158,7 @@ def start_call():
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: %d' % inputnum)
+    ser.close()
     return
 
 def record_audio():
@@ -226,7 +229,7 @@ def check_gps_power():
             check_gps_power()
         elif line == "+CGNSPWR: 1":
             return 1
-            
+
 def hazard_log():
     print("Hazard")
     if check_gps_power():
