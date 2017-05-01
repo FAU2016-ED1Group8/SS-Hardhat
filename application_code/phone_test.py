@@ -14,6 +14,8 @@ from geopy.geocoders import Nominatim
 from fuzzywuzzy import fuzz             #string compare module
 from fuzzywuzzy import process
 
+ser = serial.Serial("/dev/ttyS0",115200,timeout=3)  #   FONA Serial
+
 def check_phone_state():
     print("Checking for dialtone")
     # if dialtone start_call
