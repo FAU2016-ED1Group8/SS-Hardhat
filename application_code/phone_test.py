@@ -37,10 +37,10 @@ def check_phone_state():
 
     # elif no_dialton end_call()
 
-def start_call(inputnum):
+def start_call():
     inputnum=str('5618438458')
     print("Starting call")
-    callingVar = 'ATD$d;\r\n' % inputnum
+    callingVar = 'ATD%s;\r\n' % inputnum
     ser.write(callingVar.encode())
     print('Calling now: $d' % inputnum)
 
