@@ -14,12 +14,11 @@ GPIO.setup(pin_laser, GPIO.OUT, initial=0)
 
 def handle(pin):
     t = None
-    if pin == btn_camera:
+    if GPIO.input(btn_camera):
         print("Camera Handle")
         cap_image()
-
-def laser_on():
-    GPIO.output(pin_laser,1)
+    elif (GPIO.input(btn_camera) == False):
+        GPIO.output(pin_laser,1)
 
 def cap_image():
     GPIO.output(pin_laser,0)
