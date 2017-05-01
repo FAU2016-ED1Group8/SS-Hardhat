@@ -130,7 +130,7 @@ def check_phone_state():
 
 def start_call(inputnum):
     print("Starting call")
-    callingVar = 'ATD$d;\r\n' % inputnum
+    callingVar = ATD+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: $d' % inputnum)
 
