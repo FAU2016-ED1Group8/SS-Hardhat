@@ -59,6 +59,7 @@ GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 #         return response
 
 def check_gps_power():
+    print("Checking GPS Power")
     checkGPS_write = ser.write("AT+CGNSPWR?".encode())
     time.sleep(.3)
     #gpsPwrResponse = read_serial()
