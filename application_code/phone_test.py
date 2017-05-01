@@ -24,25 +24,25 @@ def check_phone_state():
     while True:
         try:
             state=ser.readline()
-            print(state)
+            # print(state)
             if str(state,'ascii')=='+CPAS: 0\r\n':
                 print("Phone ready")
-                break
+                start_call()
+            elif str(state,'ascii')=='+CPAS: 4\r\n':
+                sercom = "ath\r"
+                ser.write(sercom.encode())
         except:
             pass
 
-    ser.read()
-    inputnum=str('5618438458')
-    start_call(inputnum)
+
     # elif no_dialton end_call()
 
 def start_call(inputnum):
+    inputnum=str('5618438458')
     print("Starting call")
     callingVar = 'ATD$d;\r\n' % inputnum
     ser.write(callingVar.encode())
     print('Calling now: $d' % inputnum)
 
-def end_call():
-    print("ending call")
 
 check_phone_state()
