@@ -118,6 +118,8 @@ def cap_image():
 
     print("success!")
 
+    return
+
 # def check_phone_state():
 #     print("Checking for dialtone")
 #     # if dialtone start_call()
@@ -145,7 +147,7 @@ def check_phone_state():
                 ser.write(sercom.encode())
         except:
             pass
-
+    return
 
 def start_call():
     print("Starting call")
@@ -154,9 +156,7 @@ def start_call():
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: %d' % inputnum)
-
-def end_call():
-    print("ending call")
+    return
 
 def record_audio():
     r = sr.Recognizer()
@@ -226,6 +226,7 @@ def check_gps_power():
             check_gps_power()
         elif line == "+CGNSPWR: 1":
             return 1
+            
 def hazard_log():
     print("Hazard")
     if check_gps_power():
