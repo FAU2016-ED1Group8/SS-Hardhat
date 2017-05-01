@@ -141,12 +141,12 @@ def check_phone_state():
             if str(state,'ascii')=='+CPAS: 0\r\n':
                 print("Phone ready")
                 start_call()
-                break
+                return
             elif str(state,'ascii')=='+CPAS: 4\r\n':
                 print("Ending call")
                 sercom = "ath\r"
                 ser.write(sercom.encode())
-                break
+                return
         except:
             pass
     return
