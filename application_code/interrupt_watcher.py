@@ -118,19 +118,38 @@ def cap_image():
 
     print("success!")
 
+# def check_phone_state():
+#     print("Checking for dialtone")
+#     # if dialtone start_call()
+#     inputnum = voice_dial()
+#     # inputnum=str('5618438458')
+#     #inputnum=str('9547099911')
+#     start_call(inputnum)
+#     # elif no_dialton end_call()
+
 def check_phone_state():
     print("Checking for dialtone")
-    # if dialtone start_call()
-    inputnum = voice_dial()
-    # inputnum=str('5618438458')
-    #inputnum=str('9547099911')
-    start_call(inputnum)
-    # elif no_dialton end_call()
-
+    # if dialtone start_call
+    sercom = "at+cpas\r"
+    ser.write(sercom.encode())
+    while True:
+        try:
+            state=ser.readline()
+            # print(state)
+            if str(state,'ascii')=='+CPAS: 0\r\n':
+                print("Phone ready")
+                start_call()
+            elif str(state,'ascii')=='+CPAS: 4\r\n':
+                sercom = "ath\r"
+                ser.write(sercom.encode())
+        except:
+            pass
 
 
 def start_call(inputnum):
     print("Starting call")
+    #     inputnum = voice_dial()
+    inputnum=str('5618438458')
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: %d' % inputnum)
