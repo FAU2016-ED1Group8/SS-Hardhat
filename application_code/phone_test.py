@@ -25,7 +25,7 @@ def check_phone_state():
             print(state)
         except:
             pass
-    
+
     ser.read()
     inputnum=str('5618438458')
     start_call(inputnum)
@@ -39,3 +39,5 @@ def start_call(inputnum):
 
 def end_call():
     print("ending call")
+
+check_phone_state()
