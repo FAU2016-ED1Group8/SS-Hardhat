@@ -121,7 +121,8 @@ def cap_image():
 def check_phone_state():
     print("Checking for dialtone")
     # if dialtone start_call()
-    inputnum=str('5618438458')
+    # inputnum=str('5618438458')
+    inputnum=str('9547099911')
     start_call(inputnum)
     # elif no_dialton end_call()
 
@@ -263,7 +264,8 @@ def handle(pin):
 
     elif pin == btn_phone:
         print("Phone Handle")
-        phone_call()
+        # phone_call()
+        check_phone_state()
 
     elif pin == btn_loghaz:
         print("Haz Handle")
