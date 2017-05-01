@@ -134,23 +134,25 @@ def check_phone_state():
     # if dialtone start_call
     sercom = "at+cpas\r"
     ser.write(sercom.encode())
-    while True:
-        try:
-            state=ser.readline()
-            # print(state)
-            if str(state,'ascii')=='+CPAS: 0\r\n':
-                print("Phone ready")
-                ser.close()
-                start_call()
-                return
-            elif str(state,'ascii')=='+CPAS: 4\r\n':
-                print("Ending call")
-                ser.close()
-                sercom = "ath\r"
-                ser.write(sercom.encode())
-                return
-        except:
-            pass
+    # while True:
+    try:
+        state=ser.readline()
+        # print(state)
+        if str(state,'ascii')=='+CPAS: 0\r\n':
+            print("Phone ready")
+            ser.close()
+            start_call()
+            return
+        elif str(state,'ascii')=='+CPAS: 4\r\n':
+            print("Ending call")
+            ser.close()
+            sercom = "ath\r"
+            ser.write(sercom.encode())
+            return
+    except:
+        time.sleep(2)
+        check_phone_state()
+        pass
     return
 
 def start_call():
