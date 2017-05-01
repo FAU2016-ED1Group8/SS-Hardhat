@@ -140,10 +140,12 @@ def check_phone_state():
             # print(state)
             if str(state,'ascii')=='+CPAS: 0\r\n':
                 print("Phone ready")
+                ser.close()
                 start_call()
                 return
             elif str(state,'ascii')=='+CPAS: 4\r\n':
                 print("Ending call")
+                ser.close()
                 sercom = "ath\r"
                 ser.write(sercom.encode())
                 return
@@ -276,6 +278,7 @@ def hazard_log():
                         db.child("substation"+str(k.index(p))+"hazards").push(data)     #writes to the correct node to the database
             else:
                         print("no match")                                               #have to do something else in the future. Not known yet.
+
 
 def handle(pin):
     t = None
