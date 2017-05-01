@@ -253,9 +253,14 @@ def hazard_log():
 
 def handle(pin):
     t = None
-    if pin == btn_camera:
+    if pin==btn_camera and GPIO.input(btn_camera):
         print("Camera Handle")
         cap_image()
+    elif pin==btn_camera and (GPIO.input(btn_camera) == False):
+        print("Laser on")
+        GPIO.output(pin_laser,GPIO.HIGH)
+
+
     elif pin == btn_phone:
         print("Phone Handle")
         phone_call()
@@ -264,7 +269,7 @@ def handle(pin):
         print("Haz Handle")
         hazard_log()
 
-GPIO.add_event_detect(btn_camera, GPIO.FALLING, handle, bouncetime = 2000)
+GPIO.add_event_detect(btn_camera, GPIO.BOTH, handle, bouncetime = 20)
 GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle, bouncetime = 2000)
 GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle, bouncetime = 2000)
 
