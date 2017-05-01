@@ -81,6 +81,8 @@ def read_serial():
 
 def cap_image():
     firebase = pyrebase.initialize_app(config)
+    while (cameraBtn == 0):
+        GPIO.output(pin_laser,1)
 
     now = dt.today().strftime("%Y%m%d%H%M%S")
     file_name = now + '.jpg'
@@ -91,7 +93,7 @@ def cap_image():
     #####################################################################
     #####################Write to Storage################################
     #####################################################################
-
+    GPIO.output(pin_laser,0)
     print(file_name)
     storage = firebase.storage()
     #storage.child("Camera/"+"forest").put("/home/pi/Desktop/images/forest.jpg")
