@@ -14,11 +14,12 @@ GPIO.setup(pin_laser, GPIO.OUT, initial=0)
 
 def handle(pin):
     t = None
-    if GPIO.input(btn_camera):
+    if pin==btn_camera and GPIO.input(btn_camera):
         print("Camera Handle")
         cap_image()
-    elif (GPIO.input(btn_camera) == False):
-        GPIO.output(pin_laser,1)
+    elif pin==btn_camera and (GPIO.input(btn_camera) == False):
+        print("Laser on")
+        GPIO.output(pin_laser,GPIO.HIGH)
 
 def cap_image():
     GPIO.output(pin_laser,0)
@@ -26,7 +27,7 @@ def cap_image():
 
 
 
-GPIO.add_event_detect(btn_camera, GPIO.BOTH, laser_on, bouncetime = 2000)
+GPIO.add_event_detect(btn_camera, GPIO.BOTH, handle, bouncetime = 20)
 
 
 while True:
@@ -40,4 +41,4 @@ while True:
          print("Something went wrong")
     finally:
          GPIO.cleanup()
-         ser.close()
+
