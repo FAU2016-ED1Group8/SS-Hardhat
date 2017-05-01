@@ -25,6 +25,9 @@ def check_phone_state():
         try:
             state=ser.readline()
             print(state)
+            if str(state,'ascii')=='+CPAS: 0\r\n':
+                print("Phone ready")
+                break
         except:
             pass
 
