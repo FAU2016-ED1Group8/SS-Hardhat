@@ -146,7 +146,7 @@ def check_phone_state():
             pass
 
 
-def start_call(inputnum):
+def start_call():
     print("Starting call")
     #     inputnum = voice_dial()
     inputnum=str('5618438458')
