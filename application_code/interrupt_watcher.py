@@ -132,7 +132,7 @@ def start_call(inputnum):
     print("Starting call")
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
-    print('Calling now: $d' % inputnum)
+    print('Calling now: %d' % inputnum)
 
 def end_call():
     print("ending call")
