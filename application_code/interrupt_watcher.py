@@ -140,12 +140,12 @@ def check_phone_state():
         # print(state)
         if str(state,'ascii')=='+CPAS: 0\r\n':
             print("Phone ready")
-            ser.close()
+            # ser.close()
             start_call()
             return
         elif str(state,'ascii')=='+CPAS: 4\r\n':
             print("Ending call")
-            ser.close()
+            # ser.close()
             sercom = "ath\r"
             ser.write(sercom.encode())
             return
@@ -162,7 +162,7 @@ def start_call():
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: %d' % inputnum)
-    ser.close()
+    # ser.close()
     return
 
 def record_audio():
@@ -236,7 +236,7 @@ def check_gps_power():
 
 def hazard_log():
     print("Hazard")
-    if check_gps_power():
+    # if check_gps_power():
     # gpsLatLon = []
         for line in read_serial():
             if line == "OK":
@@ -302,8 +302,8 @@ def handle(pin):
         hazard_log()
 
 GPIO.add_event_detect(btn_camera, GPIO.BOTH, handle, bouncetime = 20)
-GPIO.add_event_detect(btn_phone, GPIO.FALLING, handle, bouncetime = 2000)
-GPIO.add_event_detect(btn_loghaz, GPIO.FALLING, handle, bouncetime = 2000)
+GPIO.add_event_detect(btn_phone, GPIO.BOTH, handle, bouncetime = 2000)
+GPIO.add_event_detect(btn_loghaz, GPIO.BOTH, handle, bouncetime = 2000)
 
 
 
@@ -319,3 +319,4 @@ while True:
     finally:
          GPIO.cleanup()
          ser.close()
+
