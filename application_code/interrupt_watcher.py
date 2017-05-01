@@ -81,7 +81,7 @@ def read_serial():
 
 def cap_image():
     firebase = pyrebase.initialize_app(config)
-    while (cameraBtn == 0):
+    while (btn_camera == 0):
         GPIO.output(pin_laser,1)
 
     now = dt.today().strftime("%Y%m%d%H%M%S")
