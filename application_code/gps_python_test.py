@@ -1,7 +1,7 @@
 #!/home/pi/SS-Hardhat/tractus/bin/python
 
 import RPi.GPIO as GPIO
-import time
+from time import sleep
 import os
 import speech_recognition as sr
 from datetime import datetime as dt
@@ -60,35 +60,57 @@ GPIO.setup([pin_laser, pin_buzzer], GPIO.OUT, initial=0)
 
 def check_gps_power():
     print("Checking GPS Power")
-    checkGPS_write = ser.write("AT+CGNSPWR?".encode())
-    time.sleep(.3)
+    command = "at+cgnspwr?\r"
+    ser.write(command.encode())
+    time.sleep(3)
     #gpsPwrResponse = read_serial()
-    for line in ser.readline():
+    while 1:
+        line = ser.readline()
+        line = line[:-2]
         print(line)
-        if line == "+CGNSPWR: 0":
-            print(line)
-            ser.write("AT+CGNSPWR=1".encode())
+        if line == "b'CGNSPWR: 0\r":
+            print("not on %s" % line)
+            ser.write("AT+CGNSPWR=1;\r".encode())
             time.sleep(.3)
             check_gps_power()
-        elif line == "+CGNSPWR: 1":
+        elif line == "CGNSPWR: 1":
             print("GPS in ON")
-            return True
+            return 1
+        if line == "OK" or line == "ERROR":
+            break
+
+def read_serial():
+    print("Reading serial response")
+    response = []
+    c=0
+    while True:
+        time.sleep(1)
+        c += 1
+        line = ser.readline()
+        print(c)
+        print(str(line,'ascii'))
+        if not line.strip():  # evaluates to true when an "empty" line is received
+            pass
+        else:
+            response.append(line)
+        return response
+
 
 def hazard_log():
     print("Hazard")
-    check_gps_power()
+    # check_gps_power()
     # gpsLatLon = []
-    gpsLocation_write = ser.write("AT+CGNSINF\r\n".encode())
-    for line in ser.readline:
-        print(line)
-        if line == "OK":
-
-            time.sleep(1)
-            gpsResponse = read_serial()
-            gpsLatLon = split
-            latitude = gpsLatLon[3]
-            longitude = gpsLatLon[4]
-
+    ser.write("AT+CGNSINF\r".encode())
+    sleep(3)
+    response = read_serial()
+    #print(line)
+    #lineStr = str(line,'ascii')
+    #gpsLatLon = lineStr.split(',')
+    for item in response:
+        print(item)
+    #latitude = gpsLatLon[3]
+    #longitude = gpsLatLon[4]
+    #print(latitude, longitude)
 
     # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
     now = dt.now()
