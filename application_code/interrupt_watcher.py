@@ -155,8 +155,8 @@ def check_phone_state():
 
 def start_call():
     print("Starting call")
-    #     inputnum = voice_dial()
-    inputnum=str('5618438458')
+    inputnum = voice_dial()
+    #inputnum=str('5618438458')
     callingVar = 'ATD'+str(inputnum)+';\r\n'
     ser.write(callingVar.encode())
     print('Calling now: %d' % inputnum)
