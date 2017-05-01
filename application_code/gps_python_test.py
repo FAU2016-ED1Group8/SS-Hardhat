@@ -112,11 +112,17 @@ def hazard_log():
                 for ll in gpsLatLon:
                     print(ll)
                 ser.close()
-                return
+                break
             elif str(state,'ascii')[:10]=='+CGNSINF: 0':
                 print(state)
+                sercom = 'at+cgnspwr=1'
+                ser.write(sercom.encode())
                 ser.close()
-                return
+                break
+            elif str(state,'ascii')=='OK':
+                print('OK')
+                ser.close()
+                break
         except:
             pass
     return
