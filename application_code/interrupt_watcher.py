@@ -249,8 +249,8 @@ def hazard_log():
 
 
         # print(gpsLatLon[3],gpsLatLon[4],gpsLatLon[2]
-    longitude = -80.208465
-    latitude =  26.646333
+    longitude = -80.100715
+    latitude =  26.383425
 
     now = dt.now()
     time = now.strftime('%A %B %d, %Y %I:%M:%S %p')
@@ -298,7 +298,11 @@ def handle(pin):
     elif pin == btn_phone:
         print("Phone Handle")
         # phone_call()
-        check_phone_state()
+        start_call()
+        #check_phone_state() # TODO
+        '''issues with reading the phone state, hanging on serial connection, not closing process
+        which is blocking other interrupts
+        '''
 
     elif pin == btn_loghaz:
         print("Haz Handle")
